@@ -3,10 +3,10 @@ import pickle
 import pandas as pd
 import streamlit as st
 
-# Put a photo named house.jpg (or house.png) in the same folder as this file.
+#Image file to use.
 IMAGE_FILE = next((f for f in ("house.jpg", "house.jpeg", "house.png") if os.path.exists(f)), None)
 
-# No emoji icon: use the photo as the browser-tab icon if there is one.
+# use the photo as the browser-tab icon.
 st.set_page_config(page_title="California House Price Predictor",
                    page_icon=IMAGE_FILE if IMAGE_FILE else None)
 
