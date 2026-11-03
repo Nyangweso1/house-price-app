@@ -1,8 +1,14 @@
+import os
 import pickle
 import pandas as pd
 import streamlit as st
 
-st.set_page_config(page_title="California House Price Predictor", page_icon="🏠")
+# Put a photo named house.jpg (or house.png) in the same folder as this file.
+IMAGE_FILE = next((f for f in ("house.jpg", "house.jpeg", "house.png") if os.path.exists(f)), None)
+
+# No emoji icon: use the photo as the browser-tab icon if there is one.
+st.set_page_config(page_title="California House Price Predictor",
+                   page_icon=IMAGE_FILE if IMAGE_FILE else None)
 
 @st.cache_resource
 def load_model():
@@ -11,7 +17,13 @@ def load_model():
 
 model = load_model()
 
-st.title("🏠 California House Price Predictor")
+if IMAGE_FILE:
+    try:
+        st.image(IMAGE_FILE, width="stretch")
+    except TypeError:  # older Streamlit versions
+        st.image(IMAGE_FILE, use_container_width=True)
+
+st.title("California House Price Predictor")
 st.write("KNN regression pipeline (StandardScaler + tuned KNeighborsRegressor) "
          "trained on the 1990 California census data.")
 
